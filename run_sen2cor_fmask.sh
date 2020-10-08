@@ -8,7 +8,7 @@ if [ $1 == "--help" ]; then
     -v /path/to/output:/mnt/output-dir \
     -v /path/to/CCI4SEN2COR:/home/lib/python2.7/site-packages/sen2cor/aux_data \
     -v /path/to/sen2cor_2.8.0/2.8/cfg:/root/sen2cor/2.8/cfg \
-    -t sen2cor-fmask <SENTINEL-2.SAFE>"
+    -t sen2cor_2.8.0-fmask_4.2 <SENTINEL-2.SAFE>"
     exit 0
 fi
 
