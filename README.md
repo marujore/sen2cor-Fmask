@@ -45,7 +45,7 @@ More info regarding Sen2Cor can be found on its Configuration and User Manual (h
 2. Run
 
    ```bash
-   $ docker build -t sen2cor-fmask .
+   $ docker build -t sen2cor_2.5.5-fmask_4.2 .
    ```
 
    from the root of this repository.
@@ -59,7 +59,7 @@ To process a Sentinel-2 scene (e.g. `S2A_MSIL1C_20190105T132231_N0207_R038_T23LL
 ```bash
     $ docker run --rm \
     -v /path/to/CCI4SEN2COR:/home/lib/python2.7/site-packages/sen2cor/aux_data \
-    -v /path/to/sen2cor/2.8:/root/sen2cor/2.8 \
+    -v /path/to/sen2cor/2.5:/root/sen2cor/2.5 \
     -v /path/to/folder/containing/.SAFEfile:/app \
     -v /path/to/output:/mnt/output-dir:rw \
     sen2cor-fmask yourFile.SAFE
