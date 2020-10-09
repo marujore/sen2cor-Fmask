@@ -8,7 +8,7 @@ if [ $1 == "--help" ]; then
     -v /path/to/output:/mnt/output-dir \
     -v /path/to/CCI4SEN2COR:/home/lib/python2.7/site-packages/sen2cor/aux_data \
     -v /path/to/sen2cor_2.5.5/2.5/cfg:/root/sen2cor/2.5/cfg \
-    -t sen2cor-fmask <SENTINEL-2.SAFE>"
+    -t sen2cor_2.5.5-fmask_4.2 <SENTINEL-2.SAFE>"
     exit 0
 fi
 
@@ -24,9 +24,7 @@ fi
 
 ## SENTINEL-2
 SAFENAME_L1C=$1
-SAFENAME_L2A=${SAFENAME_L1C//L1C/L2A}
-SAFENAME_L2A=${SAFENAME_L2A//_N*_R/_N9999_R}
-SAFENAME_L2A=${SAFENAME_L2A::45}
+SAFENAME_L2A_PATTERN=${SAFENAME_L1C//L1C/L2A}
 SAFEDIR_L1C=${INDIR}/${SAFENAME_L1C}
 
 WORKDIR=/work
@@ -41,7 +39,7 @@ cd ${WORKDIR}
 /home/bin/L2A_Process ${SAFENAME_L1C}
 
 for entry in `ls ${WORKDIR}`; do
-    if [[ $entry == "$SAFENAME_L2A"* ]]; then
+    if [[ $entry == "$SAFENAME_L2A_PATTERN"* ]]; then
         SAFENAME_L2A=$entry
     fi
 done
