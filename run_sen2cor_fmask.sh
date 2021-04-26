@@ -7,8 +7,8 @@ if [ $1 == "--help" ]; then
     -v /path/to/input/:/mnt/input-dir \
     -v /path/to/output:/mnt/output-dir \
     -v /path/to/CCI4SEN2COR:/home/lib/python2.7/site-packages/sen2cor/aux_data \
-    -v /path/to/sen2cor_2.8.0/2.8/cfg:/root/sen2cor/2.8/cfg \
-    -t sen2cor_2.8.0-fmask_4.2 <SENTINEL-2.SAFE>"
+    -v /path/to/sen2cor_2.9.0/2.9/cfg:/root/sen2cor/2.9/cfg \
+    -t sen2cor_2.9.0-fmask_4.3 <SENTINEL-2.SAFE>"
     exit 0
 fi
 
@@ -57,14 +57,14 @@ GRANULE_SCENE_L2A=${WORKDIR}/${SAFENAME_L2A}/GRANULE/$GRANULE_ID_L2A
 
 MCROOT=/usr/local/MATLAB/MATLAB_Runtime/v96
 cd ${GRANULE_SCENE_L1C}
-/usr/GERS/Fmask_4_2/application/run_Fmask_4_2.sh $MCROOT "$@"
+/usr/GERS/Fmask_4_3/application/run_Fmask_4_3.sh $MCROOT "$@"
 
 ## Copy outputs from workdir
 OUT_PATTERNS="${GRANULE_SCENE_L1C}/FMASK_DATA/*_Fmask4*.tif"
 if ls $OUT_PATTERNS* 1> /dev/null 2>&1; then
     for f in $OUT_PATTERNS; do
         FMASK_NAME="$(basename -- $f)"
-        gdalwarp -tr 10 10 -r near -overwrite -co "COMPRESS=PACKBITS" $f ${GRANULE_SCENE_L2A}/IMG_DATA/$FMASK_NAME
+        gdalwarp -tr 10 10 -r near -overwrite -co "COMPRESS=DEFLATE" $f ${GRANULE_SCENE_L2A}/IMG_DATA/$FMASK_NAME
     done
 else
     # if Fmask does not exist set image values to 4 (cloud) and keeps nodata as nodata

@@ -1,18 +1,18 @@
-# Sen2cor and FMASK 4.2
+# Sen2cor and FMASK
 
-Sentinel-2 Sen2cor atmospheric correction and FMASK (4.2) cloud masking.
+Sentinel-2 Sen2cor (2.9.0) atmospheric correction and FMASK (4.3) cloud masking.
 
 ## Dependencies
 
 - Docker
 
 
-## Sen2cor 2.8.0 Parameters
-Sen2cor parameters can be changing by modifing the /sen2cor_2.8.0/2.8/L2A_GIPP.xml file and mounting it.
-This repository L2A_GIPP.xml only set DEM_Terrain_Correction to FALSE.
-If you wish to use sen2cor default parameters, don't mount the parameters folder (-v /path/to/sen2cor_2.8.0/2.8:/root/sen2cor/2.8).
+## Sen2cor 2.9.0 Parameters
+Sen2cor parameters can be changing by modifing the /sen2cor_2.9.0/2.9/cfg/L2A_GIPP.xml file and mounting it.
+This repository changes the default DEM_Terrain_Correction to FALSE (at L2A_GIPP.xml).
+If you wish to use sen2cor default parameters, don't mount the parameters folder (-v /path/to/sen2cor_2.9.0/2.9:/root/sen2cor/2.9).
 
-More info regarding Sen2Cor can be found on its Configuration and User Manual (http://step.esa.int/thirdparties/sen2cor/2.8.0/docs/S2-PDGS-MPC-L2A-SUM-V2.8.pdf).
+More info regarding Sen2Cor can be found on its Configuration and User Manual (http://step.esa.int/thirdparties/sen2cor/2.9.0/docs/S2-PDGS-MPC-L2A-SRN-V2.9.0.pdf).
 
 
 ## Downloading Sen2cor auxiliarie files:
@@ -32,13 +32,13 @@ More info regarding Sen2Cor can be found on its Configuration and User Manual (h
 
 ## Downloading FMASK auxiliarie files:
 
-1. [Download FMask 4.2 standalone Linux installer](https://github.com/GERSL/Fmask)
+1. [Download FMask 4.3 standalone Linux installer](https://github.com/GERSL/Fmask)
    and copy it into the root of this repository.
 
 2. Run
 
    ```bash
-   $ docker build -t sen2cor_2.8.0-fmask_4.2 .
+   $ docker build -t sen2cor-2.9.0_fmask-4.3 .
    ```
 
    from the root of this repository.
@@ -47,15 +47,20 @@ More info regarding Sen2Cor can be found on its Configuration and User Manual (h
 ## Usage
 
 
-To process a Sentinel-2 scene (e.g. `S2A_MSIL1C_20190105T132231_N0207_R038_T23LLF_20190105T145859.SAFE`) run
+To process a Sentinel-2 scene run
 
 ```bash
     $ docker run --rm \
     -v /path/to/CCI4SEN2COR:/home/lib/python2.7/site-packages/sen2cor/aux_data \
-    -v /path/to/sen2cor/2.8:/root/sen2cor/2.8 \
-    -v /path/to/folder/containing/.SAFEfile:/app \
+    -v /path/to/sen2cor/sen2cor_2.9.0/2.9:/root/sen2cor/2.9 \
+    -v /path/to/folder/containing/.SAFEfile:/mnt/input-dir \
     -v /path/to/output:/mnt/output-dir:rw \
-    sen2cor_2.8.0-fmask_4.2 yourFile.SAFE
+    sen2cor-2.9.0_fmask-4.3 yourFile.SAFE
 ```
 
 Results are written on mounted `/mnt/output-dir/`.
+
+## Acknowledgements
+
+Copyright for portions of FMASK docker 4.0 code are held by Dion Häfner, 2018 as part of project fmaskilicious (https://github.com/DHI-GRAS/fmaskilicious).
+Copyright for portions of LaSRC 1.4 docker code are held by DHI GRAS A/S, 2018 as part of project lasrclicious (https://github.com/DHI-GRAS/lasrclicious).
