@@ -10,7 +10,7 @@ Sentinel-2 Sen2cor (2.9.0) atmospheric correction and FMASK (4.3) cloud masking.
 ## Sen2cor 2.9.0 Parameters
 Sen2cor parameters can be changing by modifing the /sen2cor_2.9.0/2.9/cfg/L2A_GIPP.xml file and mounting it.
 This repository changes the default DEM_Terrain_Correction to FALSE (at L2A_GIPP.xml).
-If you wish to use sen2cor default parameters, don't mount the parameters folder (-v /path/to/sen2cor_2.9.0/2.9:/root/sen2cor/2.9).
+If you wish to use sen2cor default parameters or change any other, mount the parameters folder (-v /path/to/sen2cor_2.9.0/2.9:/root/sen2cor/2.9).
 
 More info regarding Sen2Cor can be found on its Configuration and User Manual (http://step.esa.int/thirdparties/sen2cor/2.9.0/docs/S2-PDGS-MPC-L2A-SRN-V2.9.0.pdf).
 
@@ -63,4 +63,3 @@ Results are written on mounted `/mnt/output-dir/`.
 ## Acknowledgements
 
 Copyright for portions of FMASK docker 4.0 code are held by Dion Häfner, 2018 as part of project fmaskilicious (https://github.com/DHI-GRAS/fmaskilicious).
-Copyright for portions of LaSRC 1.4 docker code are held by DHI GRAS A/S, 2018 as part of project lasrclicious (https://github.com/DHI-GRAS/lasrclicious).
